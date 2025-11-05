@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Open Fitness Analysis</string>
+    <string name="welcome_message">Welcome to Open Fitness Analysis</string>
+    <string name="check_permissions">Check Permissions</string>
+    <string name="request_permissions">Request Permissions</string>
+    <string name="read_activities">Read Activities</string>
+    <string name="activities_label">Recent Activities:</string>
+    <string name="no_activities">No activities found</string>
+    <string name="loading">Loading…</string>
+    <string name="error_health_connect">Error accessing Health Connect: %s</string>
+    <string name="permissions_granted">Permissions granted</string>
+    <string name="permissions_denied">Some permissions denied</string>
+</resources>
