@@ -122,12 +122,15 @@ class MainActivity : AppCompatActivity() {
                     val activitiesText = buildString {
                         appendLine("Found ${response.records.size} activities:\n")
                         response.records.forEachIndexed { index, record ->
+                            val durationMinutes = java.time.Duration.between(
+                                record.startTime,
+                                record.endTime
+                            ).toMinutes()
+                            
                             appendLine("${index + 1}. ${record.exerciseType.name}")
                             appendLine("   Start: ${formatter.format(record.startTime)}")
                             appendLine("   End: ${formatter.format(record.endTime)}")
-                            appendLine("   Duration: ${
-                                java.time.Duration.between(record.startTime, record.endTime).toMinutes()
-                            } minutes")
+                            appendLine("   Duration: $durationMinutes minutes")
                             if (record.title != null) {
                                 appendLine("   Title: ${record.title}")
                             }
