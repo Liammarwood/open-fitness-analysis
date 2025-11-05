@@ -2,7 +2,6 @@ package com.openfitness.analysis
 
 import android.os.Bundle
 import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.health.connect.client.HealthConnectClient
 import androidx.health.connect.client.PermissionController
@@ -24,25 +23,17 @@ class MainActivity : AppCompatActivity() {
     // Define the permissions we need
     private val permissions = setOf(
         HealthPermission.getReadPermission(ExerciseSessionRecord::class),
-        HealthPermission.createReadPermission(
-            recordType = androidx.health.connect.client.records.StepsRecord::class
-        ),
-        HealthPermission.createReadPermission(
-            recordType = androidx.health.connect.client.records.DistanceRecord::class
-        ),
-        HealthPermission.createReadPermission(
-            recordType = androidx.health.connect.client.records.ActiveCaloriesBurnedRecord::class
-        ),
-        HealthPermission.createReadPermission(
-            recordType = androidx.health.connect.client.records.TotalCaloriesBurnedRecord::class
-        )
+        HealthPermission.getReadPermission(androidx.health.connect.client.records.StepsRecord::class),
+        HealthPermission.getReadPermission(androidx.health.connect.client.records.DistanceRecord::class),
+        HealthPermission.getReadPermission(androidx.health.connect.client.records.ActiveCaloriesBurnedRecord::class),
+        HealthPermission.getReadPermission(androidx.health.connect.client.records.TotalCaloriesBurnedRecord::class)
     )
     
-    // Permission request launcher
+    // Permission request launcher using Health Connect specific contract
     private val requestPermissions = registerForActivityResult(
-        ActivityResultContracts.RequestMultiplePermissions()
+        PermissionController.createRequestPermissionResultContract()
     ) { granted ->
-        if (granted.values.all { it }) {
+        if (granted.containsAll(permissions)) {
             showStatus(getString(R.string.permissions_granted))
         } else {
             showStatus(getString(R.string.permissions_denied))
@@ -98,12 +89,7 @@ class MainActivity : AppCompatActivity() {
     private fun requestPermissionsFromUser() {
         lifecycleScope.launch {
             try {
-                val permissionsContract = PermissionController.createRequestPermissionResultContract()
-                val intent = permissionsContract.createIntent(
-                    this@MainActivity,
-                    permissions
-                )
-                startActivity(intent)
+                requestPermissions.launch(permissions)
             } catch (e: Exception) {
                 showError(e)
             }
