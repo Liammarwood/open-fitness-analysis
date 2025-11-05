@@ -1,0 +1,17 @@
+## This file must be *NOT* checked into Version Control Systems,
+# as it contains information specific to your local configuration.
+#
+# Location of the Android SDK. This is only used by Gradle.
+# For customization when using a Version Control System, please read the
+# header note.
+#
+# Copy this file to 'local.properties' and update with your SDK path.
+
+# For Windows:
+# sdk.dir=C\:\\Users\\YourUsername\\AppData\\Local\\Android\\Sdk
+
+# For macOS:
+# sdk.dir=/Users/YourUsername/Library/Android/sdk
+
+# For Linux:
+# sdk.dir=/home/YourUsername/Android/Sdk
